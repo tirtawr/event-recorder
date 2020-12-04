@@ -1,17 +1,19 @@
 ActiveAdmin.register Event do
-  permit_params :note, :title
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :title, :note
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:title, :note]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  permit_params :note, :title, :event_type
+
+  index do
+    column 'ID', :id
+    column('Type') { |e| e.event_type.to_s }
+    column 'Title', :title
+    column 'Note', :note
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :event_type
+      f.input :title
+      f.input :note
+    end
+    f.actions
+  end
 end
